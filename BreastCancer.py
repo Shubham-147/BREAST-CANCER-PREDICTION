@@ -26,21 +26,36 @@ X_train, X_test, Y_train, Y_test = train_test_split(x, y, test_size = 0.2, strat
 # random_state --> specific split of data. each value of random_state splits the data differently
 
 #Training Part
-#Creating Model and Fitting the data in it
+#Creating Logistic Regression Model and Fitting the data in it
 from sklearn.linear_model import LogisticRegression
 model = LogisticRegression()
 model.fit(X_train,Y_train)
 
+#Creating KNN Model and Fitting the data in it
+from sklearn.neighbors import KNeighborsClassifier
+knnclassify = KNeighborsClassifier(n_neighbors=3)
+knnclassify.fit(X_train,Y_train)
+
 #Checking accuracy on training data
 from sklearn.metrics import accuracy_score
 prediction_on_training_data = model.predict(X_train)
-accuracy_on_training_data = accuracy_score(Y_train,prediction_on_training_data)
-print('Accuracy Data : ', accuracy_on_training_data)
+prediction_on_Knn = knnclassify.predict(X_train)
+accuracy_on_training_data_lg = accuracy_score(Y_train,prediction_on_training_data)
+accuracy_on_training_data_knn = accuracy_score(Y_train,prediction_on_Knn)
+
+print('Accuracy Data (Logistic Regression) : ', accuracy_on_training_data_lg)
+print('Accuracy Data (KNN) : ', accuracy_on_training_data_lg)
+
 
 # prediction on test_data
 prediction_on_test_data = model.predict(X_test)
 accuracy_on_test_data = accuracy_score(Y_test, prediction_on_test_data)
-print('Accuracy on test data : ', accuracy_on_test_data)
+prediction_on_test_Knn = knnclassify.predict(X_test)
+accuracy_on_test_data_knn = accuracy_score(Y_test, prediction_on_test_Knn)
+print('Accuracy on test data(Logistic Regression) : ', accuracy_on_test_data)
+print('Accuracy on test data(KNN) : ', accuracy_on_test_data_knn)
+
+
 
 #test on real data
 #MalignInput
